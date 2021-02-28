@@ -1,27 +1,29 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using brane.Models;
+using brane.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace brane.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class ExigenceItemController : Controller
     {
         private readonly ILogger<ExigenceItemController> _logger;
-        
-        private readonly MyDbContext _context;
+        private readonly IExigenceService _service;
 
-        public ExigenceItemController(ILogger<ExigenceItemController> logger)
+        public ExigenceItemController(ILogger<ExigenceItemController> logger, IExigenceService service)
         {
             _logger = logger;
-            // _context = context;
+            _service = service;
         }
-        
-        // GET
-        // public Task<ActionResult<IEnumerable<TaskItem>>> Index()
-        // {
-        //     return await;
-        // }
+
+        [HttpGet("all")]
+        public List<ExigenceItem> GetAll()
+        {
+            return _service.GetAll();
+        }
     }
 }

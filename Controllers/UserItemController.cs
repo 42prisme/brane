@@ -6,6 +6,8 @@ using Microsoft.Extensions.Logging;
 
 namespace brane.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class UserItemController : Controller
     {
         private readonly ILogger<UserItemController> _logger;
