@@ -33,7 +33,6 @@ namespace brane.Service
             prl.Add(new ProjectItem("deux"));
             prl.Add(new ProjectItem("trois"));
             return this.prl;
- 
         }
 
         public void Add(ProjectItem item)

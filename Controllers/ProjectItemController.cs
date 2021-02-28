@@ -12,10 +12,10 @@ namespace brane.Controllers
     public class ProjectItemController : Controller
     {
         
-        private readonly ILogger<ExigenceItemController> _logger;
+        private readonly ILogger<ProjectItemController> _logger;
         private readonly IProjectService _projectService;
         
-        public ProjectItemController(ILogger<ExigenceItemController> logger, IProjectService projectService)
+        public ProjectItemController(ILogger<ProjectItemController> logger, IProjectService projectService)
         {
             _logger = logger;
             _projectService = projectService;
