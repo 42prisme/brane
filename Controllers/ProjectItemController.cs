@@ -21,10 +21,34 @@ namespace brane.Controllers
             _projectService = projectService;
         }
 
+        [HttpGet("{id}")]
+        public ProjectItem Get(int id)
+        {
+            return _projectService.GetOne(id);
+        }
+        
         [HttpGet("all")]
         public List<ProjectItem> GetAll()
         {
             return _projectService.GetAll();
+        }
+        
+        [HttpPost("add")]
+        public void Add(ProjectItem item)
+        {
+            _projectService.Add(item);
+        }
+
+        [HttpPost("update")]
+        public void Update(ProjectItem item)
+        {
+            _projectService.Edit(item);
+        }
+
+        [HttpDelete]
+        public void Delete(ProjectItem item)
+        {
+            _projectService.Delete(item);
         }
     }
 }

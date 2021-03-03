@@ -5,15 +5,10 @@ namespace brane.Models
 {
     public class ProjectItem
     {
-        public ProjectItem(string p_label)
-        {
-            m_name = p_label;
-        }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public User Assignee { get; set; }
 
-        public int m_id { get; set; }
-        public string m_name { get; set; }
-        public User m_assignee { get; set; }
-
-        public List<JalonItem> m_jalons;
+        public List<JalonItem> Jalons;
     }
 }

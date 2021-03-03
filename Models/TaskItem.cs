@@ -5,13 +5,13 @@ namespace brane.Models
 {
     public class TaskItem
     {
-        public TaskItem(string p_label)
-        {
-        Label = p_label;
-        }
+        // public TaskItem(string p_label)
+        // {
+        // Label = p_label;
+        // }
 
-        public string Label { get; set; }
         public int Id { get; set; }
+        public string Label { get; set; }
         public string Description { get; set; }
         public User Assignee { get; set; }
         

@@ -20,10 +20,36 @@ namespace brane.Controllers
             _service = service;
         }
 
+        [HttpGet("{id}")]
+        public ExigenceItem Get(int id)
+        {
+            return _service.GetOne(id);
+        }
+
+        //get amongst
+        
         [HttpGet("all")]
         public List<ExigenceItem> GetAll()
         {
             return _service.GetAll();
+        }
+
+        [HttpPost("add")]
+        public void Add(ExigenceItem item)
+        {
+            _service.Add(item);
+        }
+
+        [HttpPost("update")]
+        public void Update(ExigenceItem item)
+        {
+            _service.Edit(item);
+        }
+
+        [HttpDelete]
+        public void Delete(ExigenceItem item)
+        {
+            _service.Delete(item);
         }
     }
 }

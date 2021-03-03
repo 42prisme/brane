@@ -1,13 +1,22 @@
 using System.Collections.Generic;
+using System.Linq;
 using brane.Models;
+using Microsoft.Extensions.Logging;
 
 namespace brane.Service
 {
     public class TaskItemService : ITaskItemService
     {
+        private readonly ILogger<TaskItemService> _logger;
+        private readonly MyDbContext _context;
+        public TaskItemService(MyDbContext context, ILogger<TaskItemService> logger)
+        {
+            _context = context;
+            _logger = logger;
+        }
         public TaskItem GetOne(int id)
         {
-            throw new System.NotImplementedException();
+            return _context.TaskItems.Find(id);
         }
 
         public List<TaskItem> GetIn()
@@ -17,22 +26,25 @@ namespace brane.Service
 
         public List<TaskItem> GetAll()
         {
-            throw new System.NotImplementedException();
+            return _context.TaskItems.ToList();
         }
 
         public void Add(TaskItem item)
         {
-            throw new System.NotImplementedException();
+            _context.TaskItems.Add(item);
+            _context.SaveChanges();
         }
 
         public void Edit(TaskItem item)
         {
-            throw new System.NotImplementedException();
+            _context.TaskItems.Update(item);
+            _context.SaveChanges();
         }
 
-        public void Delete(int id)
+        public void Delete(TaskItem item)
         {
-            throw new System.NotImplementedException();
+            _context.TaskItems.Remove(item);
+            _context.SaveChanges();
         }
     }
 }

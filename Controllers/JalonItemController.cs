@@ -18,11 +18,35 @@ namespace brane.Controllers
             _logger = logger;
             _JalonService = JalonService;
         }
+        
+        [HttpGet("{id}")]
+        public JalonItem Get(int id)
+        {
+            return _JalonService.GetOne(id);
+        }
 
         [HttpGet("all")]
         public List<JalonItem> GetAll()
         {
             return _JalonService.GetAll();
+        }
+        
+        [HttpPost("add")]
+        public void Add(JalonItem item)
+        {
+            _JalonService.Add(item);
+        }
+
+        [HttpPost("update")]
+        public void Update(JalonItem item)
+        {
+            _JalonService.Edit(item);
+        }
+
+        [HttpDelete]
+        public void Delete(JalonItem item)
+        {
+            _JalonService.Delete(item);
         }
     }
 }

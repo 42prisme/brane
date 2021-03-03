@@ -7,7 +7,9 @@ namespace brane.Models
             IHM,
             PERF
         }
-        public string m_label;
-        public JalonItem m_jalon;
+
+        public int Id { get; set; }
+        public string Label { get; set; }
+        public JalonItem Jalon { get; set; }
     }
 }

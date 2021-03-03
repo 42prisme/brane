@@ -1,13 +1,24 @@
 using System.Collections.Generic;
+using System.Linq;
 using brane.Models;
+using Microsoft.Extensions.Logging;
 
 namespace brane.Service
 {
     public class ExigenceService : IExigenceService
     {
+        private readonly ILogger<ExigenceService> _logger;
+        private readonly MyDbContext _context;
+
+        public ExigenceService(MyDbContext context, ILogger<ExigenceService> logger)
+        {
+            _logger = logger;
+            _context = context;
+        }
+
         public ExigenceItem GetOne(int id)
         {
-            throw new System.NotImplementedException();
+            return _context.ExigenceItems.Find(id);
         }
 
         public List<ExigenceItem> GetIn()
@@ -17,22 +28,25 @@ namespace brane.Service
 
         public List<ExigenceItem> GetAll()
         {
-            throw new System.NotImplementedException();
+            return _context.ExigenceItems.ToList();
         }
 
         public void Add(ExigenceItem item)
         {
-            throw new System.NotImplementedException();
+            _context.ExigenceItems.Add(item);
+            _context.SaveChanges();
         }
 
         public void Edit(ExigenceItem item)
         {
-            throw new System.NotImplementedException();
+            _context.ExigenceItems.Update(item);
+            _context.SaveChanges();
         }
 
-        public void Delete(int id)
+        public void Delete(ExigenceItem item)
         {
-            throw new System.NotImplementedException();
+            _context.ExigenceItems.Remove(item);
+            _context.SaveChanges();
         }
     }
 }

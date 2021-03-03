@@ -1,13 +1,22 @@
 using System.Collections.Generic;
+using System.Linq;
 using brane.Models;
+using Microsoft.Extensions.Logging;
 
 namespace brane.Service
 {
     public class JalonService : IJalonService
     {
+        private readonly ILogger<JalonService> _logger;
+        private readonly MyDbContext _context;
+        public JalonService(MyDbContext context, ILogger<JalonService> logger)
+        {
+            _context = context;
+            _logger = logger;
+        }
         public JalonItem GetOne(int id)
         {
-            throw new System.NotImplementedException();
+            return _context.JalonItems.Find(id);
         }
 
         public List<JalonItem> GetIn()
@@ -17,22 +26,25 @@ namespace brane.Service
 
         public List<JalonItem> GetAll()
         {
-            throw new System.NotImplementedException();
+            return _context.JalonItems.ToList();
         }
 
         public void Add(JalonItem item)
         {
-            throw new System.NotImplementedException();
+            _context.JalonItems.Add(item);
+            _context.SaveChanges();
         }
 
         public void Edit(JalonItem item)
         {
-            throw new System.NotImplementedException();
+            _context.JalonItems.Update(item);
+            _context.SaveChanges();
         }
 
-        public void Delete(int id)
+        public void Delete(JalonItem item)
         {
-            throw new System.NotImplementedException();
+            _context.JalonItems.Remove(item);
+            _context.SaveChanges();
         }
     }
 }

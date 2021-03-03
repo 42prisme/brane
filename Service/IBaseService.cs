@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using brane.Models;
 
 namespace brane.Service
 {
@@ -10,6 +11,6 @@ namespace brane.Service
 
         void Add(T item);
         void Edit(T item);
-        void Delete(int id);
+        void Delete(T item);
     }
 }

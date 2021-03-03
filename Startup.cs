@@ -1,20 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using brane;
-using brane.Controllers;
-using brane.Models;
 using brane.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
 namespace brane
@@ -31,9 +22,17 @@ namespace brane
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<MyDbContext>(opt => opt.UseInMemoryDatabase("TaskItem"));
+            // services.AddDbContext<MyDbContext>(opt => opt.UseInMemoryDatabase("brane"));
+            string connString = Configuration.GetConnectionString("connectionString");
+            services.AddDbContext<MyDbContext>(opt => opt.UseMySql(connString,ServerVersion.AutoDetect(connString)));
+            
             services.AddControllers();
             services.AddScoped<IProjectService, ProjectService>();
+            services.AddScoped<IExigenceService, ExigenceService>();
+            services.AddScoped<IJalonService, JalonService>();
+            services.AddScoped<ITaskItemService, TaskItemService>();
+            services.AddScoped<IUserService, UserService>();
+            
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "brane", Version = "v1"}); });
         }
 
