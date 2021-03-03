@@ -25,10 +25,10 @@ namespace brane.Controllers
             return _JalonService.GetOne(id);
         }
 
-        [HttpGet("all")]
-        public List<JalonItem> GetAll()
+        [HttpGet("all/{projectId}")]
+        public List<JalonItem> GetAll(int projectId)
         {
-            return _JalonService.GetAll();
+            return _JalonService.GetAll(projectId);
         }
         
         [HttpPost("add")]

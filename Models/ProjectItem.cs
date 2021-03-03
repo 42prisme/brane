@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using brane.Service;
 
 namespace brane.Models
@@ -6,9 +9,7 @@ namespace brane.Models
     public class ProjectItem
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public User Assignee { get; set; }
-
-        public List<JalonItem> Jalons;
+        [Required] public string Name { get; set; }
+        [Required] public User Assignee { get; set; }
     }
 }

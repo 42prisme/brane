@@ -24,13 +24,26 @@ namespace brane.Service
             throw new System.NotImplementedException();
         }
 
-        public List<TaskItem> GetAll()
+        public List<TaskItem> GetAll(int jalonId)
         {
-            return _context.TaskItems.ToList();
+            return _context.TaskItems.Where(taskItem => taskItem.JalonId == jalonId).ToList();
         }
 
         public void Add(TaskItem item)
         {
+            //exigence + jalon exist
+            if (_context.ExigenceItems.Find(item.ExigencesId).GetType() != typeof(ExigenceItem))
+            {
+                _logger.Log(LogLevel.Information, "man that is not an exigence ");
+                // return;  // maybe you don't nee exigence to make a jalon
+            }
+            
+            if (_context.JalonItems.Find(item.JalonId).GetType() != typeof(JalonItem))
+            {
+                _logger.Log(LogLevel.Information, "man that is not a Jalon ");
+                return;
+            }
+            
             _context.TaskItems.Add(item);
             _context.SaveChanges();
         }

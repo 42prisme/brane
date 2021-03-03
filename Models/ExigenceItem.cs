@@ -1,3 +1,6 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace brane.Models
 {
     public class ExigenceItem
@@ -9,7 +12,9 @@ namespace brane.Models
         }
 
         public int Id { get; set; }
-        public string Label { get; set; }
-        public JalonItem Jalon { get; set; }
+        [Required] public string Label { get; set; }
+        
+        [Required] public int ProjectId { get; set; }
+        [NotMapped] public ProjectItem Project { get; set; }
     }
 }

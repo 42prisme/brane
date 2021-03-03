@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using brane.Models;
@@ -19,7 +20,6 @@ namespace brane.Service
 
         public ProjectItem GetOne(int id)
         {
-            // throw new System.NotImplementedException();
             return _context.ProjectItems.Find(id);
         }
 
@@ -28,26 +28,36 @@ namespace brane.Service
             throw new System.NotImplementedException();
         }
 
-        public List<ProjectItem> GetAll()
+        public List<ProjectItem> GetAll(int id)
         {
-            // _logger.Log(LogLevel.Warning,"add project Item Man");
             return _context.ProjectItems.ToList();
         }
 
         public void Add(ProjectItem item)
         {
+            _logger.Log(LogLevel.Information, "Add ProjectItem");
             _context.ProjectItems.Add(item);
             _context.SaveChanges();
         }
 
         public void Edit(ProjectItem item)
         {
+            //check if exists with id
+            if (_context.ProjectItems.Find(item.Id).Id != item.Id) return;
             _context.ProjectItems.Update(item);
             _context.SaveChanges();
         }
 
         public void Delete(ProjectItem item)
         {
+            //remove if exists
+            if (_context.ProjectItems.Find(item.Id).Id != item.Id) return;
+            //cascade delete Jalon
+            var jal_list = _context.JalonItems.Where(jalonItem => jalonItem.ProjectId == item.Id);
+            foreach (var jalon in jal_list)
+            {
+                _context.JalonItems.Remove(jalon);
+            }
             _context.ProjectItems.Remove(item);
             _context.SaveChanges();
         }

@@ -27,14 +27,14 @@ namespace brane.Service
             throw new System.NotImplementedException();
         }
 
-        public List<User> GetAll()
+        public List<User> GetAll(int i)
         {
             return _context.Users.ToList();
         }
 
         public void Add(User item)
         {
-            Console.WriteLine(item.Name);
+            _logger.Log(LogLevel.Information, "add new user");
             _context.Users.Add(item);
             _context.SaveChanges();
         }

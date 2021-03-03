@@ -26,7 +26,7 @@ namespace brane.Service
             throw new System.NotImplementedException();
         }
 
-        public List<ExigenceItem> GetAll()
+        public List<ExigenceItem> GetAll(int id)
         {
             return _context.ExigenceItems.ToList();
         }

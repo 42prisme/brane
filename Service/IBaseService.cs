@@ -7,7 +7,7 @@ namespace brane.Service
     {
         T GetOne(int id);
         List<T> GetIn();
-        List<T> GetAll();
+        List<T> GetAll(int id = 0);
 
         void Add(T item);
         void Edit(T item);

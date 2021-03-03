@@ -23,20 +23,14 @@ namespace braneTwo.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("JalonId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Label")
+                        .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int?>("TaskItemId")
+                    b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("JalonId");
-
-                    b.HasIndex("TaskItemId");
 
                     b.ToTable("ExigenceItems");
                 });
@@ -47,21 +41,25 @@ namespace braneTwo.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("AssigneeId")
+                    b.Property<int>("AssigneeId")
                         .HasColumnType("int");
 
                     b.Property<string>("Label")
+                        .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<DateTime>("PlannedStartDate")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("RealEndDate")
                         .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AssigneeId");
+                    b.HasIndex("ProjectId");
 
                     b.ToTable("JalonItems");
                 });
@@ -76,6 +74,7 @@ namespace braneTwo.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
@@ -91,19 +90,24 @@ namespace braneTwo.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("AssigneeId")
+                    b.Property<int>("AssigneeId")
                         .HasColumnType("int");
 
                     b.Property<int>("Cost")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int?>("JalonItemId")
+                    b.Property<int>("ExigencesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("JalonId")
                         .HasColumnType("int");
 
                     b.Property<string>("Label")
+                        .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<DateTime>("Planned_start_date")
@@ -113,10 +117,6 @@ namespace braneTwo.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AssigneeId");
-
-                    b.HasIndex("JalonItemId");
 
                     b.ToTable("TaskItems");
                 });
@@ -128,6 +128,7 @@ namespace braneTwo.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
@@ -135,26 +136,13 @@ namespace braneTwo.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("brane.Models.ExigenceItem", b =>
-                {
-                    b.HasOne("brane.Models.JalonItem", "Jalon")
-                        .WithMany()
-                        .HasForeignKey("JalonId");
-
-                    b.HasOne("brane.Models.TaskItem", null)
-                        .WithMany("Exigences")
-                        .HasForeignKey("TaskItemId");
-
-                    b.Navigation("Jalon");
-                });
-
             modelBuilder.Entity("brane.Models.JalonItem", b =>
                 {
-                    b.HasOne("brane.Models.User", "Assignee")
+                    b.HasOne("brane.Models.ProjectItem", null)
                         .WithMany()
-                        .HasForeignKey("AssigneeId");
-
-                    b.Navigation("Assignee");
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("brane.Models.ProjectItem", b =>
@@ -164,29 +152,6 @@ namespace braneTwo.Migrations
                         .HasForeignKey("AssigneeId");
 
                     b.Navigation("Assignee");
-                });
-
-            modelBuilder.Entity("brane.Models.TaskItem", b =>
-                {
-                    b.HasOne("brane.Models.User", "Assignee")
-                        .WithMany()
-                        .HasForeignKey("AssigneeId");
-
-                    b.HasOne("brane.Models.JalonItem", null)
-                        .WithMany("Tasks")
-                        .HasForeignKey("JalonItemId");
-
-                    b.Navigation("Assignee");
-                });
-
-            modelBuilder.Entity("brane.Models.JalonItem", b =>
-                {
-                    b.Navigation("Tasks");
-                });
-
-            modelBuilder.Entity("brane.Models.TaskItem", b =>
-                {
-                    b.Navigation("Exigences");
                 });
 #pragma warning restore 612, 618
         }

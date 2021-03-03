@@ -25,10 +25,11 @@ namespace brane.Controllers
             return _TaskService.GetOne(id);
         }
         
-        [HttpGet("all")]
-        public List<TaskItem> GetAll()
+        [HttpGet("all/{jalonId}")]
+        public List<TaskItem> GetAll(int jalonId)
         {
-            return _TaskService.GetAll();
+            
+            return _TaskService.GetAll(jalonId);
         }
         
         [HttpPost("add")]
