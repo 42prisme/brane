@@ -34,6 +34,15 @@ namespace brane
             services.AddScoped<IUserService, UserService>();
             
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "brane", Version = "v1"}); });
+            
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "AllHosts",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +58,8 @@ namespace brane
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            
+            app.UseCors("AllHosts");
 
             app.UseAuthorization();
 
