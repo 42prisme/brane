@@ -70,7 +70,7 @@ namespace braneTwo.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("AssigneeId")
+                    b.Property<int>("AssigneeId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -78,8 +78,6 @@ namespace braneTwo.Migrations
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AssigneeId");
 
                     b.ToTable("ProjectItems");
                 });
@@ -143,15 +141,6 @@ namespace braneTwo.Migrations
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("brane.Models.ProjectItem", b =>
-                {
-                    b.HasOne("brane.Models.User", "Assignee")
-                        .WithMany()
-                        .HasForeignKey("AssigneeId");
-
-                    b.Navigation("Assignee");
                 });
 #pragma warning restore 612, 618
         }

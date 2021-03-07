@@ -15,6 +15,5 @@ namespace brane.Models
         [Required] public string Label { get; set; }
         
         [Required] public int ProjectId { get; set; }
-        [NotMapped] public ProjectItem Project { get; set; }
     }
 }

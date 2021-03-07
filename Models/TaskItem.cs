@@ -13,7 +13,6 @@ namespace brane.Models
         [Required] public string Description { get; set; }
 
         [Required] public int AssigneeId { get; set; }
-        [NotMapped] public User Assignee { get; set; }
 
         [Required] public int ExigencesId { get; set; }
 

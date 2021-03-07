@@ -14,7 +14,6 @@ namespace brane.Models
         public DateTime RealEndDate { get; set; }
         
         [Required] public int AssigneeId { get; set; }
-        [NotMapped] public User Assignee { get; set; }
         
         [Required] public int ProjectId { get; set; }
     }

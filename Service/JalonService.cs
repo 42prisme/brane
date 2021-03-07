@@ -31,10 +31,10 @@ namespace brane.Service
 
         public void Add(JalonItem item)
         {
-            if (item.Assignee.Id == 0) return;
-            if (_context.ProjectItems.Find(item.ProjectId).GetType() == typeof(ProjectItem)) return;
-
-            item.AssigneeId = item.Assignee.Id;
+            // if (item.Assignee.Id == 0) return;
+            // if (_context.ProjectItems.Find(item.ProjectId).GetType() == typeof(ProjectItem)) return;
+            //
+            // item.AssigneeId = item.Assignee.Id;
 
             _context.JalonItems.Add(item);
             _context.SaveChanges();

@@ -16,6 +16,10 @@ namespace brane.Service
         {
             _logger = logger;
             _context = context;
+            
+            //DEBUG
+            // seeder sed = new seeder(_context);
+            // sed.populate_One();
         }
 
         public ProjectItem GetOne(int id)
